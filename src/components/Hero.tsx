@@ -127,7 +127,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: -20, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-12 -left-10 bg-white/95 backdrop-blur-md rounded-2xl p-3 border border-slate-200/60 shadow-lg flex items-center gap-3 max-w-[210px]"
+              className="absolute -bottom-10 -left-10 bg-white/95 backdrop-blur-md rounded-2xl p-3 border border-slate-200/60 shadow-lg flex items-center gap-3 max-w-[210px]"
               style={{ x: -10, y: 10 }}
             >
               <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500 shrink-0 border border-blue-200/30">
