@@ -1,2 +1,5 @@
 node_modules/
 dist/
+
+# Full build output (also copied to repo root by `npm run deploy` for GitHub Pages)
+docs/

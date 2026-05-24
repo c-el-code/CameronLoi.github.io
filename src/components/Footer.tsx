@@ -28,12 +28,9 @@ export default function Footer() {
               </span>
             </div>
 
-            <h3 className="font-display font-extrabold text-3xl md:text-4xl text-slate-900 tracking-tight mb-3 leading-tight">
-              Let's connect.
+            <h3 className="font-display font-extrabold text-3xl md:text-4xl text-slate-900 tracking-tight leading-tight">
+              Let's connect!
             </h3>
-            <p className="font-sans text-slate-500 text-sm md:text-base leading-relaxed">
-              Whether you have a project in mind, want to talk hardware + software, or just want to say hi, my inbox is always open.
-            </p>
           </div>
 
           {/* Right: action buttons */}
@@ -88,32 +85,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right: Social links + scroll-to-top */}
           <div className="flex items-center gap-3">
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="https://www.linkedin.com/in/cameron-loi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:bg-blue-50/50 hover:border-blue-200/50 transition-colors shadow-xs"
-              aria-label="LinkedIn profile"
-            >
-              <Linkedin size={16} />
-            </motion.a>
-
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="mailto:camerondotel@gmail.com"
-              className="w-9 h-9 rounded-full border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-rose-600 hover:bg-rose-50/50 hover:border-rose-200/50 transition-colors shadow-xs"
-              aria-label="Send email"
-            >
-              <Mail size={16} />
-            </motion.a>
-
-            <div className="h-5 w-px bg-slate-200" aria-hidden="true" />
-
             <motion.button
               whileHover={{ y: -2 }}
               onClick={handleScrollToTop}

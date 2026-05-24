@@ -10,6 +10,9 @@ export interface ExperienceItem {
   logoUrl?: string;
 }
 
+// Vite copies public/logos/ to the site root; BASE_URL includes the GitHub Pages project path.
+const logo = (filename: string) => `${import.meta.env.BASE_URL}logos/${filename}`;
+
 export const experiences: ExperienceItem[] = [
   {
     id: "voestalpine",
@@ -26,7 +29,7 @@ export const experiences: ExperienceItem[] = [
       "Wrote a comprehensive LPBF crash course for future interns that spans the full end-to-end process: machine operation, process parameters, materials/alloys, powder production, defect types, post processing, and an industry SWOT analysis."
     ],
     tags: ["Materials Characterization", "Reports", "Excel Automations", "R&D"],
-    logoUrl: "/logos/voestalpine.jpg"
+    logoUrl: logo("voestalpine.jpg")
   },
   {
     id: "startup-ecosystem",
@@ -39,7 +42,7 @@ export const experiences: ExperienceItem[] = [
       "Founding and leading the establishment of the UW club, building its organizational structure from the ground up.",
       "Organizing hackathons and events to connect student entrepreneurs with SEC's network of investors, and industry leaders."
     ],
-    logoUrl: "/logos/sec.jpg"
+    logoUrl: logo("sec.jpg")
   },
   {
     id: "md-pharma",
@@ -51,7 +54,7 @@ export const experiences: ExperienceItem[] = [
     bullets: [
       "Conducted competitor analysis of leading wellness platforms and designed a Gen Z survey, using Power BI to analyze results and develop dashboards to identify branding strategies, trends, and market insights."
     ],
-    logoUrl: "/logos/mdpharma.png"
+    logoUrl: logo("mdpharma.png")
   },
   {
     id: "formula-nano",
@@ -65,6 +68,6 @@ export const experiences: ExperienceItem[] = [
       "Modelled molecules and applied computational methods to predict their NMR spectra data.",
       "Fabricated parts using machine shop tools."
     ],
-    logoUrl: "/logos/formulanano.jpg"
+    logoUrl: logo("formulanano.jpg")
   }
 ];
