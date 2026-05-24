@@ -1,8 +1,49 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { experiences, ExperienceItem } from "../data/experience";
 
+function CompanyLogo({ id, companyName, logoUrl }: { id: string; companyName: string; logoUrl?: string }) {
+  const [imgError, setImgError] = useState(false);
+
+  if (logoUrl && !imgError) {
+    return (
+      <img 
+        src={logoUrl} 
+        alt={`${companyName} logo`}
+        className="w-10 h-10 rounded-lg object-contain bg-white border border-slate-200/80 p-0.5 shrink-0"
+        onError={() => setImgError(true)}
+        referrerPolicy="no-referrer"
+      />
+    );
+  }
+
+  // Pre-styled corporate color branding fallbacks in case images have not been uploaded yet
+  let fallbackBg = "bg-slate-100 text-slate-600";
+  let fallbackText = companyName.charAt(0);
+
+  if (id === "voestalpine") {
+    fallbackBg = "bg-blue-650 text-white font-extrabold";
+    fallbackText = "VA";
+  } else if (id === "startup-ecosystem") {
+    fallbackBg = "bg-rose-600 text-white font-extrabold";
+    fallbackText = "SE";
+  } else if (id === "md-pharma") {
+    fallbackBg = "bg-sky-500 text-white font-extrabold";
+    fallbackText = "MD";
+  } else if (id === "formula-nano") {
+    fallbackBg = "bg-red-650 text-white font-extrabold";
+    fallbackText = "FN";
+  }
+
+  return (
+    <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-xs font-black tracking-wider shrink-0 uppercase select-none ${fallbackBg}`}>
+      {fallbackText}
+    </div>
+  );
+}
+
 export default function ExperienceTimeline() {
+  // Theme styling dictionaries based on coop versus student club types from diagram
   const getCardTheme = (badgeColor: "blue" | "orange" | "amber") => {
     switch (badgeColor) {
       case "blue":
@@ -32,8 +73,8 @@ export default function ExperienceTimeline() {
 
   return (
     <div className="relative max-w-2xl mx-auto py-6 pl-8 sm:pl-10">
-      {/* Timeline track line */}
-      <div
+      {/* Timeline track line running vertically */}
+      <div 
         className="absolute left-[15px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-blue-500/20 via-slate-200 to-amber-500/20"
         aria-hidden="true"
       />
@@ -41,7 +82,7 @@ export default function ExperienceTimeline() {
       <div className="space-y-6 relative">
         {experiences.map((experience: ExperienceItem, idx: number) => {
           const theme = getCardTheme(experience.badgeColor);
-
+          
           return (
             <motion.div
               key={experience.id}
@@ -51,45 +92,43 @@ export default function ExperienceTimeline() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="relative group text-left"
             >
-              {/* Timeline dot */}
-              <div
+              {/* Core Timeline Dot Node */}
+              <div 
                 className={`absolute -left-[23px] sm:-left-[31px] top-5 w-3.5 h-3.5 rounded-full ${theme.dotColor} ring-4 transition-transform duration-300 group-hover:scale-125 z-10`}
               />
 
-              <div
+              <div 
                 className={`bg-white rounded-2xl shadow-xs hover:shadow-md border border-slate-200/60 p-4 sm:p-5 transition-shadow ${theme.borderAccent}`}
               >
-                {/* Header: Logo + Company name + Badge */}
-                <div className="flex items-start gap-3 mb-2">
-                  {/* Company Logo */}
-                  <CompanyLogo experience={experience} />
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                      <h4 className="font-display font-extrabold text-base text-slate-900 tracking-tight leading-tight">
-                        {experience.company}
-                      </h4>
-                      <span
-                        className={`inline-self-start sm:inline-self-auto text-[9px] px-2 py-0.5 rounded-full border shrink-0 font-bold ${theme.badgeClass}`}
-                      >
-                        {experience.badge}
-                      </span>
-                    </div>
-
-                    {/* Role + Duration */}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs mt-0.5 gap-0.5">
-                      <span className="font-sans font-semibold text-slate-600">
-                        {experience.role}
-                      </span>
-                      <span className="font-mono text-[10px] text-slate-400 shrink-0">
-                        {experience.duration}
-                      </span>
-                    </div>
+                {/* Header Block: Title and Badge */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <CompanyLogo 
+                      id={experience.id} 
+                      companyName={experience.company} 
+                      logoUrl={experience.logoUrl} 
+                    />
+                    <h4 className="font-display font-extrabold text-base text-slate-900 tracking-tight">
+                      {experience.company}
+                    </h4>
                   </div>
+                  <span className={`inline-self-start sm:inline-self-auto text-[9px] px-2 py-0.5 rounded-full border shrink-0 font-bold ${theme.badgeClass}`}>
+                    {experience.badge}
+                  </span>
                 </div>
 
-                {/* Bullet descriptions */}
-                <ul className="space-y-1.5 mb-4 pl-3.5 list-disc text-slate-500 text-xs leading-relaxed marker:text-slate-400 text-left mt-3">
+                {/* Subtitle Block: Role and Duration */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs mb-3 gap-1 text-slate-500">
+                  <span className="font-sans font-semibold text-slate-600 text-left">
+                    {experience.role}
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400">
+                    {experience.duration}
+                  </span>
+                </div>
+
+                {/* Body: Bullet Descriptions */}
+                <ul className="space-y-1.5 mb-4 pl-3.5 list-disc text-slate-500 text-xs leading-relaxed marker:text-slate-400 text-left">
                   {experience.bullets.map((bullet, bIdx) => (
                     <li key={bIdx} className="hover:text-slate-700 transition-colors">
                       {bullet}
@@ -97,7 +136,7 @@ export default function ExperienceTimeline() {
                   ))}
                 </ul>
 
-                {/* Tags */}
+                {/* Tags (optional) */}
                 {experience.tags && experience.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
                     {experience.tags.map((tag, tIdx) => (
@@ -115,33 +154,6 @@ export default function ExperienceTimeline() {
           );
         })}
       </div>
-    </div>
-  );
-}
-
-// Separate logo component with its own error state per entry
-function CompanyLogo({ experience }: { experience: ExperienceItem }) {
-  const [imgError, setImgError] = useState(false);
-
-  if (experience.logoUrl && !imgError) {
-    return (
-      <div className="w-10 h-10 rounded-xl border border-slate-200/70 bg-white shadow-xs overflow-hidden shrink-0 flex items-center justify-center">
-        <img
-          src={experience.logoUrl}
-          alt={`${experience.company} logo`}
-          className="w-full h-full object-contain p-1"
-          onError={() => setImgError(true)}
-        />
-      </div>
-    );
-  }
-
-  // Fallback: styled initials avatar
-  return (
-    <div
-      className={`w-10 h-10 rounded-xl ${experience.logoBg} ${experience.logoText} shrink-0 flex items-center justify-center font-display font-extrabold text-sm shadow-xs border border-white/20`}
-    >
-      {experience.logoInitials}
     </div>
   );
 }
