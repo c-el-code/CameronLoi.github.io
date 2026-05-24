@@ -5,6 +5,12 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // Project site: https://c-el-code.github.io/CameronLoi.github.io/
+    base: '/CameronLoi.github.io/',
+    build: {
+      outDir: 'docs',
+      emptyOutDir: true,
+    },
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
